@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+ <head>
+  <title>Test Management</title>
+     <link rel="shortcut icon" href="{% static "picture/s.ico" %}">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+ </head>
+ <body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+   <div class="container">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="/testcase/">Test cases</a>
+     </div>
+     <li id="navbar" class="collapse navbar-collapse">
+       <ul class="nav navbar-nav">
+         <li class="{% block category_library%}{% endblock %}"><a href="/testcase/Project/">Library</a></li>
+         <li class="{% block category_instance%}{% endblock %}"><a href="/testcase/Instances/">Instance</a></li>
+         <li class="{% block category_bug%}{% endblock %}"><a href="/testcase/Bugs/">Bug</a></li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
+         <li class="dropdown">
+             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ user.get_username }}<span class="caret"></span></a>
+             <ul class="dropdown-menu">
+               <li class="menuItem"><a href="/usersetting/">User Setting</a></li>
+               <li class="menuItem"><a href="/logout/">Sign Out</a></li>
+             </ul>
+         </li>
+       </ul>
+     </div>
+   </div>
+  </nav>
+
+
+  {% block body_block %}
+  This is default block content
+  {% endblock %}
+  <div id="baseErrorInfo"></div>
+  <div id="dlg_prompt" class="modal fade failDlg" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h4 id="dlg_prompt_title" class="modal-title">Warning</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button id="dlg_prompt_ok" type="button" class="btn btn-primary" onclick="">OK</button>
+				<button id="dlg_prompt_cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+    </div>
+  <script src="{% static "js/jquery-3.2.1.js" %}"></script>
+  <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+  <script src="{% static "js/base.js" %}"></script>
+  {% block end_script_block %}
+  {% endblock %}
+
+ </body>
+</html>

@@ -1,0 +1,13 @@
+{% load staticfiles %}
+{% load testTemplateTag %}
+
+<ul id="testcase_detail_tree">
+{% if all_root_elems %}
+	{% for node in all_root_elems %} 
+		{% get_node_detail node %}
+	{% endfor %}
+{% else %}
+	<p>This Project doesn't have any case.</p>
+{% endif %}
+</ul>
+<script type="text/javascript">$('#testcase_detail_tree').treed_checkbox();</script>

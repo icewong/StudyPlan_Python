@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>Test Management</title>
+	<link rel="shortcut icon" href="{% static "picture/s.ico" %}">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+</head>
+ <body>
+
+ <div class="container">
+      <form class="form-signin"  method="post" action="{% url 'login' %}">
+		  {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputUser" class="sr-only">User Name</label>
+        <input type="text" id="inputUser" name="username" class="form-control" placeholder="User Name" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+        <!--div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div-->
+          {% if PromptInfo %}
+          <p class="promptInfo">{{PromptInfo}}</p>
+          {% endif %}
+        <button class="btn btn-lg btn-block btnlh-sign" type="submit">Sign in</button>
+      </form>
+ </div>
+
+  <link href="{% static "css/login.css" %}" rel="stylesheet"></link>
+ </body>
+</html>

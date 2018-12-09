@@ -1,0 +1,38 @@
+table {
+    background-color: #FFF;
+    border: none;
+    font-size: 15px;
+}
+
+table, td, th {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    text-align:left;
+}
+tbody td{
+    background-color: #EEE;
+    padding: 9px;
+    color: #444;
+}
+tbody th {
+    background-color: #444;
+    color: #EEE;
+    border-top: 3px solid #666;
+    padding: 9px;
+}
+
+
+tfoot td, tfoot th {
+    font-weight: bold;
+    padding: 4px 8px 6px 9px;
+    text-align:center;
+}
+
+thead th {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 19px;
+    padding: 0 8px 2px;
+    text-align:center;
+}

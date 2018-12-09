@@ -1,0 +1,25 @@
+
+<div id="fail_dlg_{{ dlgID }}" class="modal fade failDlg">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h4 class="modal-title">{{ title }}</h4>
+			</div>
+			<div class="modal-body">
+				<form action="/" method="post" id="dlg_from_id_{{ dlgID }}">
+					{% csrf_token %}
+					<dl>{% for field in form %}
+						<dt>{{ field.label_tag }}</dt> <dd>{{ field }}</dd>{% endfor %}
+					</dl>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="dlg_error_info"></div>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary" form="dlg_from_id_{{ dlgID }}">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+

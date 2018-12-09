@@ -1,0 +1,40 @@
+{% extends "testcase/base.html" %}
+{% load staticfiles %}
+{% block category_library %}active{% endblock %}
+{% block body_block %}
+<h1 class="subTitle">Test Cases Library</h1>
+<table class="normaTable">
+	<tbody>
+		<tr>
+			<th>Project Name</th>
+			<th>Last Modify Time</th>
+			<th>Principals</th>
+			<th>Members</th>
+			<th></th>
+			{% if admin %}<th></th>{% endif %}
+		</tr>
+{% if project %}
+	{% for item in project %}
+	<tr>
+		<td><a href="/testcase/Project/{{ item.id }}">{{ item.name }}</a></td>
+		<td>{{ item.update_time }}</td>
+		<td>{% for sub_item in item.principals%}{{sub_item.first_name}} {{sub_item.last_name}}, {% endfor%}</td>
+		<td>{% for sub_item in item.members%}{{sub_item.first_name}} {{sub_item.last_name}}, {% endfor%}</td>
+		<td>{% if item.enable_config == 1 %}<a href="/testcase/Project/{{ item.id }}/config" class="glyphicon glyphicon-cog"></a>{% endif %}</td>
+		{% if admin %}<td><a href="/testcase/Project/{{ item.id }}/delete">Delete</a></td>{% endif %}
+	</tr>
+	{% endfor %}
+{% else %}
+	<tr><td colspan="5">There is No Project</td></tr>
+{% endif %}
+	</tbody>
+</table>
+{% if admin %}
+<div id="importTestcase"><a href="/testcase/ImportTestCase/">Import New Project</a></div>
+{% endif %}
+<link href="{% static "css/AllTestcase.css" %}" rel="stylesheet"></link>
+{% endblock %}
+
+{% block end_script_block %}
+<script src="{% static "js/AllTestcase.js" %}"></script>
+{% endblock %}

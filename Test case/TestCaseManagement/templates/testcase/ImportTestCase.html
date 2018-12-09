@@ -1,0 +1,17 @@
+{% extends "testcase/base.html" %}
+{% block category_library %}active{% endblock %}
+{% block body_block %}
+<h1>Import Test Cases</h1>
+
+<form action="{% url "ImportTestCase" %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<dl>
+		
+		<dt>{{ form.project_name.label_tag }}</dt>
+		<dd>{{ form.project_name }}</dd>
+		<dt>{{ form.docfile.label_tag }}</dt>
+		<dd>{{ form.docfile }}</dd>
+	</dl>
+	<p><input type="submit" value="Upload"/></p>
+</form>
+{% endblock %}

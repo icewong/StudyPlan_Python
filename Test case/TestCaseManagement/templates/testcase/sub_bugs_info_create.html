@@ -1,0 +1,36 @@
+<table class="bugTable">
+    <tbody>
+        <tr>
+            <th>JIRA Number</th>
+            <th>System</th>
+            <th>Bug Status</th>
+            <th>Occurrence Probability</th>
+            <th>Content</th>
+            <th>Creator</th>
+            <th>Creation time</th>
+            <th>Modifier</th>
+            <th>Modification time</th>
+            <th></th>
+            <th></th>
+        </tr>
+{% if bugs %}
+    {% for item in bugs %}
+        <tr id="{{ item.id }}">
+            <td class="number">{{ item.jira_number }}</td>
+            <td class="system" data="{{ item.system_type }}"></td>
+            <td class="status" data="{{ item.bug_status }}"></td>
+            <td class="probility">{{ item.occurrence_probability }}</td>
+            <td class="content">{{ item.content }}</td>
+            <td class="cr_user">{{ item.create_user.first_name }} {{ item.create_user.last_name }}</td>
+            <td class="cr_time">{{ item.create_time }}</td>
+            <td class="mo_user">{{ item.update_user.first_name }} {{ item.update_user.last_name }}</td>
+            <td class="mo_time">{{ item.update_time }}</td>
+            <td><a class="glyphicon glyphicon-cog"></a></td>
+            <td>{% if item.enable_delete %}<a class="delete">Delete</a>{% endif %}</td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <tr><td colspan="5">There is No Bugs</td></tr>
+{% endif %}
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+
+.user,.borderDropdown{
+    border: 1px solid #ccc;
+    display: inline;
+    padding: 3px 6px;
+    text-align: left;
+    border-radius: 4px;
+    margin-right:5px;
+}
+.userGroup{
+    padding-top: 5px;
+}
+.user i{
+    margin-left: 6px;
+}
+.user i:hover{
+    cursor:pointer ;
+    color: #66afe9;
+}
+.borderDropdown{
+    display: inline;
+}
+.borderDropdown .dropdown-menu{
+    background-color: white;
+}
+.borderDropdown .dropdown-menu li a:hover,.borderDropdown .joined{
+    background-color: #66afe9;
+    color: white;
+}

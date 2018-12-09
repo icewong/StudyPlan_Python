@@ -1,0 +1,67 @@
+{% extends "testcase/base.html" %}
+{% load staticfiles %}
+{% block category_library %}active{% endblock %}
+{% block body_block %}
+{% if projectName %}
+<h1 class="subTitle">Modify {{ projectName }}</h1>
+{% else %}
+<h1 class="subTitle">Import New Test Cases Project</h1>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<dl>
+		{% if showName %}
+		<dt>{{ form.project_name.label_tag }}</dt>
+		<dd>{{ form.project_name }}</dd>
+		{% endif %}
+		{% if projectName %}
+		<dt>Update file(.xlsx):</dt>
+		{% else %}
+		<dt>{{ form.docfile.label_tag }}</dt>
+		{% endif %}
+		<dd>{{ form.docfile }}</dd>
+		{% if showPrincipal %}
+		<dt>Project principal </dt>
+		<dd>
+			<div class="userGroup" id="principalList">
+				{% for item in principalUsers %}
+				<div class="user" userid={{item.user_id}}><i class="glyphicon glyphicon-remove"></i></div>
+				{% endfor %}
+				<div class="borderDropdown dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add user <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+					{% for item in AllUsers %}
+						<li userid={{item.id}}><a>{{item.first_name}} {{item.last_name}}</a></li>
+					{% endfor %}
+                </ul>
+                </div>
+			</div>
+		</dd>
+		{% endif %}
+
+		<dt>Project member</dt>
+		<dd>
+			<div class="userGroup" id="memberList">
+				{% for item in memberUsers %}
+				<div class="user" userid={{item.user_id}}><i class="glyphicon glyphicon-remove"></i></div>
+				{% endfor %}
+				<div class="borderDropdown dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add user <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+					{% for item in AllUsers %}
+						<li userid={{item.id}}><a>{{item.first_name}} {{item.last_name}}</a></li>
+					{% endfor %}
+                </ul>
+                </div>
+			</div>
+		</dd>
+	</dl>
+	<p><button class="btn" type="submit" >Save</button></p>
+</form>
+<div id="errorInfo"></div>
+<link href="{% static "css/ProjectModify.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block end_script_block %}
+<script src="{% static "js/ProjectModify.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+
+tfoot td, tfoot th {
+    font-weight: bold;
+    padding: 4px 8px 6px 9px;
+    text-align:center;
+}
+
+td:first-child{
+    padding-left: 30px;
+}
+
+#importTestcase{margin-top:10px;}

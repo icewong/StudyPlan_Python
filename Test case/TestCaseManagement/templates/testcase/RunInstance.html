@@ -1,0 +1,83 @@
+{% extends "testcase/hasWaitPrompt.html" %}
+{% load staticfiles %}
+{% load testTemplateTag %}
+{% block category_instance %}active{% endblock %}
+{% block detail_content %}
+<link href="{% static "css/lh-tree.css" %}" rel="stylesheet">
+<link href="{% static "css/left-right-layout.css" %}" rel="stylesheet">
+<link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+<link href="{% static "css/RunInstance.css" %}" rel="stylesheet">
+<div id="left">
+	<div id="search_div" class="panel panel-primary">
+		<div class="panel-heading">
+    		<h3 class="panel-title">Search<span class="glyphicon glyphicon-menu-down"></span></h3>
+  		</div>
+		<div class="panel-body" hidden>
+			<form id="id_form_search" action="" method="POST">
+				<div class="radio">
+					<input type="radio" id="radio_search_all" value="search_all" name="search_all"checked="">
+					<label for="radio_search_all">All</label>
+				</div>
+				<div class="radio">
+					<input type="radio" id="radio_search_condition" value="search_condition" name="search_all">
+					<label for="radio_search_condition">By status</label>
+				</div>
+				<div id="search_by_condition">
+					<div class="checkbox checkbox-inline">
+						<input id="checkbox_pass" class="styled" type="checkbox" value="search_by_pass" name="search_condition">
+						<label for="checkbox_pass">Passed</label>
+					</div>
+					<div class="checkbox checkbox-inline">
+						<input id="checkbox_fail" class="styled" type="checkbox" value="search_by_fail" name="search_condition">
+						<label for="checkbox_fail">Failed</label>
+					</div>
+					<div class="checkbox checkbox-inline">
+						<input id="checkbox_na" class="styled" type="checkbox" value="search_by_na" name="search_condition">
+						<label for="checkbox_na">NA</label>
+					</div>
+					<div class="checkbox checkbox-inline">
+						<input id="checkbox_none" class="styled" type="checkbox" value="search_by_none" name="search_condition">
+						<label for="checkbox_none">Not executed</label>
+					</div>
+				</div>
+				<div class="edit">
+					<input name="search_case_index" class="form-control" id="id_search_case_index" placeholder="By Testcase ID"/>
+					<label for="id_search_case_index" class="sr-only">By Testcase ID</label>
+				</div>
+				<div class="edit">
+					<input name="search_case_name" class="form-control" id="id_search_case_name" placeholder="By Testcase Name"/>
+					<label for="id_search_case_name" class="sr-only">By Testcase Name</label>
+				</div>
+				<button class="btn" type="submit">Search</button>
+			</form>
+		</div>
+	</div>
+	<div id="div_project_detail">
+		<ul id="project_detail" tested="{{ testedItems }}">
+		{% if root_items %}
+			{% for node in root_items %}
+				{% generate_tree_from_map node map%}
+			{% endfor %}
+		{% else %}
+			<p>This Version doesn't has any cases.</p>
+		{% endif %}
+		</ul>
+	</div>
+</div>
+<div id="middle"></div>
+<div id="right">
+<div id="detail"><div id="warnning_info">Please select a test case to test.</div></div>
+</div>
+<div id='end'></div>
+
+{% fail_dlg %}
+
+{% endblock %}
+{% block end_script_block %}
+{% csrf_token %}
+<script src="{% static "js/RunInstance.js" %}"></script>
+<script src="{% static "js/left-right-layout.js" %}"></script>
+<script src="{% static "js/lh-tree.js" %}"></script>
+{% endblock %}
+
+

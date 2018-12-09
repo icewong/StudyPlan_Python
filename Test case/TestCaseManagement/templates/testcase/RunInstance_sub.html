@@ -1,0 +1,52 @@
+{% load staticfiles %}
+{% load testTemplateTag %}
+
+
+{% if case_detail %}
+<div caseid="{{ ins_case.id }}" class="testcaseDetail">
+<p id="casePath">{{ case_detail.path.content }}/{{ case_detail.path.name }}/</p>
+<dl>
+<dt>Testcase Name</dt>
+<dd>{{ case_detail.name }}</dd>
+<dt>Testcase ID</dt>
+<dd>{{ case_detail.case_index }}</dd>
+<dt>Test Type</dt>
+<dd>{{ case_detail.test_type }}</dd>
+<dt>Level</dt>
+<dd>{{ case_detail.level_text }}</dd>
+<dt>Pre condition</dt>
+<dd>{{ case_detail.pre_condition }}</dd>
+<dt>Steps</dt>
+<dd>{{ case_detail.step }}</dd>
+<dt>Expection</dt>
+<dd>{{ case_detail.exception }}</dd>
+<dt>Bug information:</dt>
+<dd id="dd_bugs">	{% for sub_item in bugs_info %}
+<div class="comb-del"><a related_dlg_id="fail_dlg_{{sub_item.id}}" onclick="dlgShow('fail_dlg_{{sub_item.id}}')">JIRA number: {{ sub_item.jira_number }}</a><i class="glyphicon glyphicon-remove"></i></div>
+	{% endfor %}
+<div id='addNewBug'><a onclick="dlgShow('fail_dlg_NewFailDlg')">Add New Bug</a></div><p></p>
+</dd>
+<dt>Comment</dt>
+<dd>
+	<form id="form_comment">
+		<button class="btn" type="submit" disabled="disabled">Save</button>
+		<div>
+			<textarea rows="3" class="form-control" name="comment" type="text">{% if ins_case.comment %}{{ ins_case.comment }}{% endif %}</textarea>
+		</div>
+	</form>
+</dd>
+
+</dl>
+{% endif %}
+<div id="div_result_btns">
+<button class="btn" id='successbtn'><i class="fa fa-check fa-lg fa-fw" aria-hidden="true"></i>Pass</button>
+<button class="btn" id='failbtn'><i class="fa fa-times fa-lg fa-fw" aria-hidden="true"></i>Fail</button>
+<button class="btn" id='ngbtn'><i class="fa fa-exclamation fa-lg fa-fw" aria-hidden="true"></i>NA</button>
+</div>
+</div>
+
+{% for sub_item in bugs_info %}
+	{% fail_dlg sub_item.id sub_item %}
+{% endfor %}
+
+

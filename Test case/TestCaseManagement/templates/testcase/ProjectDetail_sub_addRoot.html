@@ -1,0 +1,13 @@
+<div id="path_node_page">
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" related="add_path_node_page" class="active"><a href="#">Add root node of path</a></li>
+    </ul>
+    <div id="add_root_path_node_page" class="sub-page" {% if add_testcase %}hidden{% endif %}>
+        <form class="normal-form" id="add_root_path_node_form">
+            <label>Name of new node</label>
+            {% csrf_token %}
+            <input type="text" class="form-control" required name="new_node_name"/>
+            <button class="btn" type="submit">Add</button>
+        </form>
+    </div>
+</div>

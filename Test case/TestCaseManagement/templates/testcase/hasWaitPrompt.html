@@ -1,0 +1,11 @@
+{% extends "testcase/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+
+{% block detail_content %}
+{% endblock %}
+
+
+
+<div hidden id="waiting" class="loading" style="background: #000 url({% static "picture/wait.gif" %}) no-repeat 10px 50%;">Saving. Please wait.</div>
+{% endblock %}

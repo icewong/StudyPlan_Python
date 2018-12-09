@@ -1,0 +1,13 @@
+
+{% load testTemplateTag %}
+<ul id="project_detail" tested="{{ testedItems }}">
+{% if root_items %}
+	{% for node in root_items %}
+		{% generate_tree_from_map node map%}
+	{% endfor %}
+{% else %}
+	<b>Could not find related test cases.</b>
+{% endif %}
+</ul>
+
+

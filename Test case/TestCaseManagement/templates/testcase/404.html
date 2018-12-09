@@ -1,0 +1,11 @@
+{% extends "testcase/base.html" %}
+{% block body_block %}
+<div>
+	<h1>404</h1>
+	{% if Detail %}
+		<p>{{ Detail }}</p>
+	{% else %}
+		<p>Oops! This Page is Not Exist.</p>
+	{% endif %}
+</div>
+{% endblock %}

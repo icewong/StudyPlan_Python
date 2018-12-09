@@ -1,0 +1,14 @@
+{% load testTemplateTag %}
+{%if node.test_case %}
+<li class="testcase" id="{{ node.id }}">{{node.name}}</li>
+{% else %}
+<li> {{node.name}}
+<ul>
+{%for ch in node.all_children %}
+	{% with item=ch %}
+		{% generate_tree_from_map item map %}
+	{%endwith%}
+{%endfor%}
+</ul>
+</li>
+{%endif%}

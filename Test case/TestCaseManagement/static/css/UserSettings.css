@@ -1,0 +1,17 @@
+.changePwd{
+    width:300px;
+    margin-left:20px;
+}
+h1{
+    text-align:center;
+    padding-bottom:20px;
+    font-size:24px;
+    font-weight: 600;
+}
+h2{
+    font-size:16px;
+    font-weight: 800;
+    padding-bottom: 5px;
+    border-bottom: solid 2px #66afe9;
+}
+#pwdErr{color:red;}

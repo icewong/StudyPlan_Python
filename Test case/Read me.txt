@@ -1,0 +1,7 @@
+1. If you want to see whole test case with Web test case system,
+Please signin Test Management system using below link & account£º
+adress:http://150.242.228.78:8000/testcase/
+account: viewer
+passward:123456789
+
+2. click ¡°Library¡±button-->¡°Apollo¡±button-->each"+"button to unfold the test case items.
