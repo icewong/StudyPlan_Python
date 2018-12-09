@@ -1,0 +1,16 @@
+{% extends "testcase/hasWaitPrompt.html" %}
+{% load staticfiles %}
+{% block category_instance %}active{% endblock %}
+{% block detail_content %}
+<h1 class="subTitle">Are you sure to delete this instance "{{ instance.name }}" ?</h1>
+<form method="POST" action="/testcase/manipulate/">
+	{% csrf_token %}
+	<input hidden name="instance-delete" value="{{ instance.id }}"/>
+	<button class="btn" type="submit">Sure</button>
+	<button class="btn" type="button" onclick="window.location.href='/testcase/Project'">Cancel</button>
+</form>
+{% endblock %}
+{% block end_script_block %}
+{% endblock %}
+
+

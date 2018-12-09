@@ -1,0 +1,63 @@
+{% extends "testcase/base.html"%}
+{% load staticfiles %}
+{% load testTemplateTag %}
+{% block category_bug %}active{% endblock %}
+{% block body_block %}
+<h1 class="subTitle">Bugs Management</h1>
+<div id="search_div" class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Search<span class="glyphicon glyphicon-menu-down"></span></h3>
+	</div>
+	<div class="panel-body">
+		<form id="id_form_search" action="" method="POST">
+			<div id="search_by_system" class="search_group">
+				<div class="name">System</div>
+				<div class="checkbox checkbox-inline">
+					<input id="checkbox_ios" class="styled" type="checkbox" value="search_by_ios" name="search_by_system" checked>
+					<label for="checkbox_ios">iOS</label>
+				</div>
+				<div class="checkbox checkbox-inline">
+					<input id="checkbox_android" class="styled" type="checkbox" value="search_by_android" name="search_by_system" checked>
+					<label for="checkbox_android">Android</label>
+				</div>
+			</div>
+			<div id="search_by_status" class="search_group">
+				<div class="name">Status</div>
+				<div class="checkbox checkbox-inline">
+					<input id="checkbox_open" class="styled" type="checkbox" value="search_by_open" name="search_by_status" checked>
+					<label for="checkbox_open">Opening</label>
+				</div>
+				<div class="checkbox checkbox-inline">
+					<input id="checkbox_close" class="styled" type="checkbox" value="search_by_close" name="search_by_status" checked>
+					<label for="checkbox_close">Closed</label>
+				</div>
+				<div class="checkbox checkbox-inline">
+					<input id="checkbox_pend" class="styled" type="checkbox" value="search_by_pend" name="search_by_status" checked>
+					<label for="checkbox_pend">Pending</label>
+				</div>
+			</div>
+			<div class="search_edit">
+				<label class="name" for="id_search_jira_no">By JIRA Number</label>
+				<input name="search_jira_no" class="form-control" id="id_search_jira_no" placeholder="By JIRA Number"/>
+			</div>
+			<div class="search_edit">
+				<label class="name" for="id_search_discription">By Content</label>
+				<input name="search_discription" class="form-control" id="id_search_discription" placeholder="By Content"/>
+			</div>
+			<button class="btn" type="submit">Search</button>
+		</form>
+	</div>
+</div>
+<div id="div_bugs">
+	{% create_bugs_info_table bugs %}
+</div>
+
+{% fail_dlg %}
+
+<link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+<link href="{% static "css/AllBugs.css" %}" rel="stylesheet"></link>
+{% endblock %}
+{% block end_script_block %}
+{% csrf_token %}
+<script src="{% static "js/AllBugs.js" %}"></script>
+{% endblock %}

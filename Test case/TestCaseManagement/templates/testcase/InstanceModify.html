@@ -1,0 +1,42 @@
+{% extends "testcase/base.html" %}
+{% load staticfiles %}
+{% block category_instance %}active{% endblock %}
+{% block body_block %}
+<h1 class="subTitle">{{title}}</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<dl>
+		<dt>{{ form.project_name.label_tag }}</dt>
+		<dd>{{ form.project_name }}</dd>
+		<dt>{{ form.testcase_choice.label_tag }}</dt>
+		<dd>
+		<div>{{ form.testcase_choice }}</div>
+		{% if selected_cases %}
+		<div id='testcase-detail' sel='{{ selected_cases }}' class="padding-top"></div>
+		{% else %}
+		<div id='testcase-detail' class="padding-top"></div>
+		{% endif %}
+		</dd>
+		<dt>Version information:</dt>
+		<dd>
+			<div id="version-info">
+			<p class="inline">System</p><input class="inline form-control" id="ver-system"/>
+			<p class="inline">Version</p><input class="inline form-control" id="ver-version"/>
+			<button class="btn inline" id="btn-add-ver" type="button">Add</button>
+			</div>
+			<div id="added-version">{% for item in versions %}<div class="version-item">
+				<b class="ver-system">{{ item.name }}</b><i>{{ item.version }}</i><i class="glyphicon glyphicon-remove" onclick="removeVersion(this)"></i></div>{% endfor %}</div>
+		</dd>
+	</dl>
+	<p class='error' id="errorInfo"></p>
+	<button class="btn" type="submit">Save</button>
+</form>
+<link href="{% static "css/lh-tree.css" %}" rel="stylesheet">
+<link href="{% static "css/InstanceModify.css" %}" rel="stylesheet">
+{% endblock %}
+{% block end_script_block %}
+<script src="{% static "js/InstanceModify.js" %}"></script>
+<script src="{% static "js/lh-tree.js" %}"></script>
+<script type="text/javascript">$('#project_detail').treed_checkbox();</script>
+{% endblock %}

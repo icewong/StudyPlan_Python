@@ -1,0 +1,20 @@
+{% load testTemplateTag %}
+<li pathid="{{ node.id }}" class="path-node"><b>{{node.name}}</b>
+    {%if node.end_path %}
+		{% if node.all_children %}
+		<ul>
+		{%for ch in node.all_children %}
+			<li class="testcase" id="{{ ch.id }}">{{ch.name}}</li>
+        {%endfor%}
+		</ul>
+		{%endif%}
+	{% else %}
+	    <ul>
+         {%for ch in node.all_children %}
+              {% with node=ch %}
+                   {% create_tree_from_parent node %}
+              {%endwith%}
+         {%endfor%}
+         </ul>
+    {%endif%}
+</li>

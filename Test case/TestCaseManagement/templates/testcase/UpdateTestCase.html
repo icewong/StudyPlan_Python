@@ -1,0 +1,13 @@
+{% extends "testcase/base.html" %}
+{% block category_library %}active{% endblock %}
+{% block body_block %}
+<h1>Update {{ project_name }}</h1>
+<form action="{% url "UpdateTestCase" project_slug%}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<dl>
+		<dt>{{ form.docfile.label_tag }}</dt>
+		<dd>{{ form.docfile }}</dd>
+	</dl>
+	<p><input type="submit" value="Upload"/></p>
+</form>
+{% endblock %}

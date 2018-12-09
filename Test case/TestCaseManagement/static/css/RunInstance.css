@@ -1,0 +1,89 @@
+.testcase:hover {
+    cursor: pointer;
+}
+
+#successbtn,#failbtn,#ngbtn {
+    width:120px;
+    margin-left: 30px;
+}
+
+.fa-check{
+    color: #00ff00;
+}
+.fa-times{
+    color: #FF0000;
+}
+.fa-exclamation{
+    color: #bcbbaa;
+}
+
+li span{
+    width:15px;
+    text-align:center;
+}
+
+form dl dt{
+float: left;
+display: block;
+width: 160px;}
+
+li.testcase.selected{
+    color:#a94442;
+    font-weight:bold;
+}
+
+/*right part*/
+.testcaseDetail dd{ padding-left: 20px; padding-bottom: 5px; }
+.testcaseDetail dd:empty:before{ content: 'None'; }
+#casePath{font-weight:bold;font-size:12px;color:#369; }
+#dd_bugs div:only-of-type[style="display: none;"]~p:before{content:'None';}
+#addNewBug{display: inline;}
+
+#warnning_info{
+    padding:20px;
+    font-weight:700;
+    text-align:center;
+    font-size:18px;
+}
+#div_result_btns{ padding-bottom:20px;}
+
+/*search part*/
+#search_by_condition{margin-left: 20px;}
+.checkbox.checkbox-inline {padding-right:10px;}
+#search_div .panel-heading span{
+    float: right;  }
+#search_div .panel-heading:hover{
+    background: #449be6;
+}
+#search_div .panel-body{
+    padding-top:0;
+}
+#search_div .edit label{
+    display: inline;
+}
+#search_by_condition{
+    margin-top:-10px;
+}
+#search_div .edit{
+    margin-top:10px;
+}
+#search_div button{
+    float:right;
+    margin-top:10px;
+}
+
+/*comment*/
+#form_comment button{
+    margin-top:40px;
+    float: right;
+}
+#form_comment div{
+    overflow:hidden;
+    padding-right: 5px;
+}
+
+/*fail dlg*/
+.dlg_error_info{
+    text-align: left;
+    color:red;
+}

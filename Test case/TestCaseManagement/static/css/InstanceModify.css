@@ -1,0 +1,26 @@
+#added-version{
+    border: 1px solid #ccc;
+    padding: 3px 6px;
+    text-align: left;
+    border-radius: 4px;
+    margin-top:10px;
+}
+.inline{
+    display:inline;
+    margin-right:5px;
+}
+input.inline
+{
+    margin-right:10px;
+}
+input.form-control.inline{width:auto;}
+
+.error{color:red;}
+.ver-system{margin-right: 15px;}
+
+.glyphicon-remove{
+    padding-left: 20px;
+}
+.glyphicon-remove:hover{
+    color: #66aee8;
+}

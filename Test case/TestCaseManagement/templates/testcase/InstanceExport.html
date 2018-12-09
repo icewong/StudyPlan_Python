@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+ <head>
+  <title>Test Management</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style type="text/css">
+html{
+ font-family: 'Open Sans', sans-serif;
+}
+h1{
+ font-size: 20px;
+ background: #101010;
+ color: #fff;
+ text-align: center;
+ padding: 10px 10px;
+ margin-bottom: 5px;
+}
+h2{
+ font-size: 18px;
+ text-align: right;
+ padding: 0px; margin: 0px;
+}
+.subTitle{
+ margin: 0;
+ padding-left: 20px;  padding-top:10px;
+ border: 0;
+ vertical-align: baseline;
+ color: #000;
+ font-size: 15px;
+ font-weight: 700;
+ background: #f2dddc;
+ text-align: left;
+ margin-top:20px;
+ margin-bottom: 10px;
+ height: 31px;
+}
+.info{
+  margin-left: 50px;
+}
+table{
+ text-align:center;
+ border-collapse:collapse;
+}
+
+.tbNormal td,.tbNormal th{
+ border:1px solid #caccc6;
+ padding:3px 7px 2px 7px;
+}
+.tbNormal th{
+ padding-top:5px;
+ padding-bottom:4px;
+ background-color:#edefe9;
+}
+
+.tbExpand{width:1024px;}
+.tbExpand td, .tbExpand th{
+ margin: 0;
+ vertical-align: middle;
+ text-align:left;
+}
+.tbExpand tr.even{
+ background-color: #e7e8e8;
+}
+.tbExpand td{
+ padding: 6px;
+}
+.tbExpand th {
+ background-color: #edefe9;
+ color: #131212;
+ border-bottom: 1px solid #caccc6;
+ padding: 9px;
+}
+.tbExpand td:first-child{
+ padding-left:15px;
+}
+td.expand {
+    text-decoration: underline;
+}
+td.expand:hover{
+    cursor:pointer;
+}
+.caseDetail dd:empty:before{ content: 'None'; }
+.caseDetail dt{ padding-left: 20px; font-weight: 600;}
+.caseDetail{border:1px solid #181817;}
+.tbExpand b{margin: 10px;}
+
+.ver_name{padding-right:10px;}
+</style>
+  <script type="text/javascript">
+   window.onload=function(){
+ var items=document.getElementsByClassName("expand");
+ for (var i in items)
+  {
+   items[i].onclick=function () {
+    var ditem = event.target.parentNode.nextElementSibling;
+    if (ditem.hidden) {
+     ditem.hidden = false;
+     event.target.textContent = "Hide";
+    }
+    else {
+     ditem.hidden = true;
+     event.target.textContent = "Detail";
+    }
+   };
+ }
+};
+
+  </script>
+ </head>
+ <body>
+  <h1>{{ instance.name }} Testing Report</h1>
+  <h2>Exporter {{ user.first_name }} {{ user.last_name }}</h2>
+  <div>
+   <div class="subTitle">Version Information</div>
+   <div class="info">
+    {% for item in versions %}
+    <div><b class="ver_name">{{ item.name }}</b>{{ item.version }}</div>
+    {% endfor %}
+   </div>
+  </div>
+  <div>
+   <div class="subTitle">Test Cases Statistics</div>
+   <div class="info">
+    <table class="tbNormal">
+     <tr>
+      <th>Total</th>
+      <th>Passed</th>
+      <th>Failed</th>
+      <th>NA</th><th>Unexecuted</th>
+     </tr>
+     <tr>
+      <td>{{ caseResTotal }}</td>
+      <td>{{ caseResSuccess }}</td>
+      <td>{{ caseResFail }}</td>
+      <td>{{ caseResNg }}</td>
+      <td>{{ caseResUnexectuted }}</td>
+     </tr>
+    </table>
+   </div>
+  </div>
+  <div>
+   <div class="subTitle">Bug Statistics</div>
+   <div class="info">
+    <table class="tbNormal">
+     <tr>
+      <th>Total</th>
+      <th>Opening</th>
+      <th>Closed</th>
+      <th>Pending</th>
+     </tr>
+     <tr>
+      <td>{{ bugTotal }}</td>
+      <td>{{ bugOpening }}</td>
+      <td>{{ bugClosed }}</td>
+      <td>{{ bugPending }}</td>
+     </tr>
+    </table>
+    </div>
+  </div>
+  <div>
+   <div class="subTitle">Detail of Failed Cases</div>
+   <div class="info">
+    <table class="tbExpand">
+     <tr>
+      <th width="50">ID</th>
+      <th>Name</th>
+      <th width="300">Related Bugs</th>
+      <th width="50"></th>
+     </tr>
+	 {% for item in FailedCases %}
+     {% if forloop.counter|divisibleby:2 %}
+     <tr class="even">
+     {% else %}
+     <tr>
+     {% endif %}
+      <td>{{ item.case_index }}</td>
+      <td>{{ item.name }}</td>
+	  <td>{% for bug in item.bugs %}
+      <div><b>JIRA:</b>{{ bug.jira_number }}</div>
+	  {% endfor %}</td>
+      <td class="expand">Detail</td>
+     </tr>
+     <tr class="caseDetail" hidden><td colspan="5"><dl>
+      <dt>Path</dt>
+      <dd>{{ item.path.content }}/{{ item.path.name }}/</dd>
+      <dt>Test Type</dt>
+      <dd>{{ item.test_type }}</dd>
+      <dt>Level</dt>
+      <dd>{{ item.level_text }}</dd>
+      <dt>Pre condition</dt>
+      <dd>{{ item.pre_condition }}</dd>
+      <dt>Steps</dt>
+      <dd>{{ item.step }}</dd>
+      <dt>Expection</dt>
+      <dd>{{ item.exception }}</dd>
+      <dt>Comment</dt>
+      <dd>{{ item.comment }}</dd>
+     </dl></td></tr>
+	 {% endfor %}
+    </table>
+    </div>
+  </div>
+    <div>
+   <div class="subTitle">Detail of NA Cases</div>
+   <div class="info">
+    <table class="tbExpand">
+     <tr>
+      <th width="50">ID</th>
+      <th>Name</th>
+      <th width="300">Related Bugs</th>
+      <th width="50"></th>
+     </tr>
+	 {% for item in NACases %}
+     {% if forloop.counter|divisibleby:2 %}
+     <tr class="even">
+     {% else %}
+     <tr>
+     {% endif %}
+      <td>{{ item.case_index }}</td>
+      <td>{{ item.name }}</td>
+	  <td>{% for bug in item.bugs %}
+      <div><b>JIRA:</b>{{ bug.jira_number }}</div>
+	  {% endfor %}</td>
+      <td class="expand">Detail</td>
+     </tr>
+     <tr class="caseDetail" hidden><td colspan="5"><dl>
+      <dt>Path</dt>
+      <dd>{{ item.path.content }}/{{ item.path.name }}/</dd>
+      <dt>Test Type</dt>
+      <dd>{{ item.test_type }}</dd>
+      <dt>Level</dt>
+      <dd>{{ item.level_text }}</dd>
+      <dt>Pre condition</dt>
+      <dd>{{ item.pre_condition }}</dd>
+      <dt>Steps</dt>
+      <dd>{{ item.step }}</dd>
+      <dt>Expection</dt>
+      <dd>{{ item.exception }}</dd>
+      <dt>Comment</dt>
+      <dd>{{ item.comment }}</dd>
+     </dl></td></tr>
+	 {% endfor %}
+    </table>
+    </div>
+  </div>
+  <div>
+   <div class="subTitle">Detail of Bugs</div>
+   <div class="info">
+    <table class="tbExpand">
+     <tr>
+      <th>JIRA Number</th>
+      <th>Bug Status</th>
+      <th>Occurrence Probability</th>
+      <th>Content</th>
+     </tr>
+     {% for item in AllBugs %}
+     {% if forloop.counter|divisibleby:2 %}
+     <tr class="even">
+     {% else %}
+     <tr>
+     {% endif %}
+     <td>{{ item.jira_number }}</td>
+     <td>{{ item.bug_status_text }}</td>
+     <td>{{ item.occurrence_probability }}</td>
+     <td>{{ item.content }}</td>
+     </tr>
+     {% endfor %}
+    </table>
+    </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "testcase/base.html"%}
+{% load staticfiles %}
+{% block body_block %}
+<div id="contentArea">
+<h1>User Settings</h1>
+{% if registered %}
+ Rango says: <strong>thank you for registering!</strong>
+<a href="{% url 'index' %}">Return to the homepage.</a><br />
+{% else %}
+<h2>Change password</h2>
+<div class="changePwd">
+<form id="user_form" method="post" action="/loginWithNewPwd/" enctype="multipart/form-data">
+{% csrf_token %}
+<label for="oldpwd" class="sr-only">Old password</label>
+ <input type="password" id="oldpwd" name="oldpwd" class="form-control" placeholder="Old password" required autofocus>
+<label for="newpwd" class="sr-only">New password</label>
+ <input type="password" id="newpwd" name="newpwd" class="form-control" placeholder="New password" required autofocus>
+<label for="confirmpwd" class="sr-only">New password (again)</label>
+ <input type="password" id="confirmpwd" name="confirmpwd" class="form-control" placeholder="New password (again)" required autofocus>
+<p id="pwdErr">&nbsp</p>
+ <button class="btn btn-lg btnlh-sign" type="submit">Change Password</button>
+</form>
+ </div>
+ {% endif %}
+</div>
+{% endblock %}
+
+{% block end_script_block %}
+<link href="{% static "css/UserSettings.css" %}" rel="stylesheet"></link>
+<script src="{% static "js/UserSettings.js" %}"></script>
+{% endblock %}

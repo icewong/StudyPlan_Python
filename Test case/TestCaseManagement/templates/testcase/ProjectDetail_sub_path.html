@@ -1,0 +1,50 @@
+<div id="path_node_page">
+    <ul class="nav nav-pills" role="tablist">
+        {% if add_testcase %}<li role="presentation" class="active" related="add_test_case_page"><a href="#">Add test case</a></li>{% endif %}
+        {% if not hide_add_node%}<li role="presentation" related="add_path_node_page" {% if not add_testcase %}class="active"{% endif %}><a href="#">Add another path node</a></li>{% endif %}
+        <li role="presentation" related="delete_page"><a href="#">Delete</a></li>
+        <li role="presentation" related="modify_page"><a href="#">Modify</a></li>
+    </ul>
+    {% if add_testcase %}<div id="add_test_case_page" class="sub-page">
+        <form id="add_test_case_form">
+            <dl>
+                <dt>Testcase Name</dt>
+                <dd>{{ form.name }}</dd>
+                <dt>Testcase ID</dt>
+                <dd>{{ form.case_index }}</dd>
+                <dt>Test Type</dt>
+                <dd>{{ form.test_type }}</dd>
+                <dt>Level</dt>
+                <dd>{{ form.level }}</dd>
+                <dt>Pre condition</dt>
+                <dd>{{ form.pre_condition }}</dd>
+                <dt>Steps</dt>
+                <dd>{{ form.step }}</dd>
+                <dt>Expectation</dt>
+                <dd>{{ form.expectation }}</dd>
+            </dl>
+            <button class="btn" type="submit">Add</button>
+        </form>
+    </div>{% endif %}
+    {% csrf_token %}
+    {% if not hide_add_node%}<div id="add_path_node_page" class="sub-page" {% if add_testcase %}hidden{% endif %}>
+        <form class="normal-form" id="add_path_node_form">
+            <label>Name of new node</label>
+            <input type="text" class="form-control" required name="new_node_name"/>
+            <button class="btn" type="submit">Add</button>
+        </form>
+    </div>{% endif %}
+    <div id="delete_page" class="sub-page" hidden>
+        <form id="delete_form" class="normal-form" >
+            <div>Are you sure to delete this node "{{node.name}}"?</div>
+            <button class="btn" type="submit">Delete</button>
+        </form>
+    </div>
+    <div id="modify_page" class="sub-page" hidden>
+        <form id="modify_form" class="normal-form">
+            <label>Node name</label>
+            <input type="text" class="form-control" required name="modify_name" value="{{ node.name }}"/>
+            <button class="btn" type="submit">Save</button>
+        </form>
+    </div>
+</div>

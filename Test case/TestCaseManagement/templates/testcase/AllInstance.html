@@ -1,0 +1,38 @@
+{% extends "testcase/base.html"%}
+{% load staticfiles %}
+{% block category_instance %}active{% endblock %}
+{% block body_block %}
+<h1 class="subTitle">Testing</h1>
+<table class="normaTable">
+	<tbody class="main">
+		<tr>
+			<th>Testing Version</th>
+			<th>Related Project</th>
+			<th>Last Executor</th>
+			<th>Last Execution Time</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			{% if admin %}<th></th>{% endif %}
+		</tr>
+{% if project %}
+	{% for item in project %}
+	<tr id="{{item.id}}">
+		<td><a href="/testcase/Instances/{{ item.id }}">{{ item.name }}</a></td>
+		<td>{{ item.project.name }}</td>
+		<td>{{ item.latest_executor.username }}</td>
+		<td>{{ item.latest_execution_time }}</td>
+		<td><a href="/testcase/Instances/{{ item.id }}/config" class="glyphicon glyphicon-cog"></a></td>
+		<td><a href="/testcase/Instances/{{ item.id }}/export-result">Export Report</a></td>
+		<td><a href="/testcase/Instances/{{ item.id }}/export-testcase">Export Testcase</a></td>
+		{% if admin %}<td><a href="/testcase/Instances/delete/{{ item.id }}">Delete</a></td>{% endif %}
+	</tr>
+	{% endfor %}
+{% else %}
+	<tr><td colspan="6">There is No Testing Version</td></tr>
+{% endif %}
+	</tbody>
+</table>
+<div id="importTestcase"><a href="/testcase/Instances/add/">Add Testing Version</a></div>
+<link href="{% static "css/AllInstance.css" %}" rel="stylesheet"></link>
+{% endblock %}

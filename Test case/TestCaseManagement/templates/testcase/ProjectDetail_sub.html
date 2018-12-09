@@ -1,0 +1,29 @@
+<div>
+{% if form %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+<p>{{ path }}</p>
+<dl>
+<dt>Testcase Name</dt>
+<dd>{{ form.name }}</dd>
+<dt>Testcase ID</dt>
+<dd>{{ form.case_index }}</dd>
+<dt>Test Type</dt>
+<dd>{{ form.test_type }}</dd>
+<dt>Level</dt>
+<dd>{{ form.level }}</dd>
+<dt>Pre condition</dt>
+<dd>{{ form.pre_condition }}</dd>
+<dt>Steps</dt>
+<dd>{{ form.step }}</dd>
+<dt>Expectation</dt>
+<dd>{{ form.expectation }}</dd>
+</dl>
+       {% if Manage_permission %}<button class="btn" type="submit">Save Changes</button>
+        <button class="btn" type="button" onclick="boundDeleteTestcase()">Delete</button>{% endif %}
+    </form>
+{% endif %}
+</div>
+<div>&nbsp;</div>
+
